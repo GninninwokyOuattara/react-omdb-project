@@ -1,8 +1,5 @@
-import React, { useRef, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useRef, useEffect } from "react";
 import "./SearchBar.css";
-
-type searchState = "null" | "string";
 
 interface ParamState {
     props: {
@@ -24,6 +21,8 @@ interface ResponseData {
 const SearchBar: React.FC<ParamState> = (props) => {
     // console.log({ props });
     const searchBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+    // const searchButtonRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
+    const [isSeaching, setIsSearching] = useState<boolean>(false);
 
     const fetchData = async (): Promise<Response> => {
         const query = `http://www.omdbapi.com/?s=${
@@ -35,11 +34,16 @@ const SearchBar: React.FC<ParamState> = (props) => {
         return response;
     };
 
-    const submitHandler = (e: React.FormEvent) => {
-        console.log("hey");
+    const submitHandler = async (e: React.FormEvent) => {
         e.preventDefault();
-        const moviesData = fetchData();
-        console.log(moviesData);
+
+        const query = `http://www.omdbapi.com/?s=${searchBarRef.current.value}&apikey=480344f1&r`;
+        setIsSearching((isSeaching) => true);
+        const res = await fetch(query);
+        const response = await res.json();
+        console.log(response);
+        setIsSearching((isSeaching) => false);
+        // const moviesData = fetchData();
     };
     return (
         <div className="d-flex flex-column justify-content-center align-items-center">
@@ -57,7 +61,11 @@ const SearchBar: React.FC<ParamState> = (props) => {
                     type="submit"
                     className="form__btn-submit w-50 d-block mx-auto rounded border-0 text-white"
                 >
-                    Search
+                    {isSeaching ? (
+                        <i className="fa fa-spinner fa-spin"></i>
+                    ) : (
+                        "Search"
+                    )}
                 </button>
             </form>
         </div>
