@@ -1,0 +1,20 @@
+.input-container {
+  border: 1px solid #e37653;
+  background-color: #ffffff;
+  padding: 0 1rem; }
+
+.form__input {
+  width: 17rem;
+  height: 3rem;
+  border: none;
+  background-color: transparent;
+  margin-left: 1rem; }
+  .form__input:focus {
+    outline: none; }
+
+.form__btn-submit {
+  border: none;
+  height: 2.5rem;
+  background-color: rgba(255, 112, 112, 0.73); }
+
+/*# sourceMappingURL=SearchBar.css.map */
