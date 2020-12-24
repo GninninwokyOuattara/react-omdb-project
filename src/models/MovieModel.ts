@@ -1,4 +1,4 @@
-export interface Movie {
+export interface MovieData {
     Title: string;
     Year: string;
     Poster: string;
