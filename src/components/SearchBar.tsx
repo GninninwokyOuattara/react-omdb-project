@@ -1,16 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./SearchBar.css";
 import { ParamState } from "../models/ParamState";
-
-interface Response {
-    Search?: {}[];
-    Response: string;
-    totalResults: string;
-}
-
-interface ResponseData {
-    (): Promise<{}>;
-}
+import { ResponseData } from "../models/ResponseData";
+import { fetchAllData } from "../utils/dataFetcher";
 
 // interface MooviesData {
 
@@ -22,36 +14,30 @@ const SearchBar: React.FC<ParamState> = ({ props }) => {
 
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
-    const fetchData = async (): Promise<Response> => {
-        const query = `http://www.omdbapi.com/?s=${
-            searchBarRef.current.value
-        }=${new Date().getFullYear().toString()}&apikey=480344f1&r`;
-        console.log(query);
-        const res = await fetch(query);
-        const response = await res.json();
-        return response;
-    };
+    // const fetchData = async (): Promise<Response> => {
+    //     const query = `http://www.omdbapi.com/?s=${
+    //         searchBarRef.current.value
+    //     }=${new Date().getFullYear().toString()}&apikey=480344f1&r`;
+    //     console.log(query);
+    //     const res = await fetch(query);
+    //     const response = await res.json();
+    //     return response;
+    // };
 
     const submitHandler = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const query = `http://www.omdbapi.com/?s=${searchBarRef.current.value}&apikey=480344f1&r`;
+        // await fetch()
+        // const query = `http://www.omdbapi.com/?s=${searchBarRef.current.value}&apikey=480344f1&r`;
         setIsSearching((isSeaching) => true);
-        const res = await fetch(query);
-        const response: Response = await res.json();
-        console.log(response);
-
-        if (!response.Response) {
-            setMoviesData(() => false);
-        } else {
-            setMoviesData(() => {
-                // console.log(response.response)
-                return { ...response };
-            });
+        try {
+            const results = await fetchAllData(1, searchBarRef.current.value);
+            setMoviesData(() => results);
+        } catch (error) {
+            console.log(error);
         }
-
+        //setup sate
         setIsFirstSearchDone(() => true);
-
         setIsSearching((isSeaching) => false);
     };
     return (

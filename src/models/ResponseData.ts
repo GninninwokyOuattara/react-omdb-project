@@ -1,3 +1,7 @@
+export interface ResponseError {
+    Response: "False";
+    Error: "Movie not found!" | "Too many results";
+}
 export interface ResponseData {
     Search: {
         Title: string;
@@ -6,6 +10,8 @@ export interface ResponseData {
         imdbID: string;
         Type: string;
     }[];
-    Response: string;
+    Response: "True";
     totalResults: string;
 }
+
+export type Response = ResponseError | ResponseData;

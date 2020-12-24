@@ -11,42 +11,43 @@ function App() {
     const [moviesData, setMoviesData] = useState<false | ResponseData>(false);
     const [isFirstSearchDone, setIsFirstSearchDone] = useState<boolean>(false);
 
-    if (!isFirstSearchDone) {
-        return (
-            // <div className="d-flex flex-column justify-content-center align-items-center">
-            <SearchBar props={{ setMoviesData, setIsFirstSearchDone }} />
-            // </div>
-        );
-    } else {
-        return (
-            <React.Fragment>
-                <SearchBar props={{ setMoviesData, setIsFirstSearchDone }} />
-                <div className="movies-container container">
-                    <div className="row gx-3 gy-2">
-                        {moviesData !== false &&
-                            moviesData.Search.map((movie) => {
-                                return <Movie {...movie} />;
-                            })}
-                    </div>
-                </div>
+    return <SearchBar props={{ setMoviesData, setIsFirstSearchDone }} />;
+    // if (!isFirstSearchDone) {
+    //     return (
+    //         // <div className="d-flex flex-column justify-content-center align-items-center">
+    //         <SearchBar props={{ setMoviesData, setIsFirstSearchDone }} />
+    //         // </div>
+    //     );
+    // } else {
+    //     return (
+    //         <React.Fragment>
+    //             <SearchBar props={{ setMoviesData, setIsFirstSearchDone }} />
+    //             <div className="movies-container container">
+    //                 <div className="row gx-3 gy-2">
+    //                     {moviesData !== false &&
+    //                         moviesData.Search.map((movie) => {
+    //                             return <Movie {...movie} />;
+    //                         })}
+    //                 </div>
+    //             </div>
 
-                {/* // moviesData.Search.map((movie) => {
-                    //     <Movie data={movie} />;
-                    // })} */}
-                {/* {isFirstSearchDone && moviesData !== false
-                    ? moviesData.Search.map((movie) => {
-                          <Movie data={movie} />;
-                      })
-                    : undefined}
-                {moviesData &&
-                    moviesData.Search.map((movie) => {
-                        console.log(movie.Title);
-                    })}
-                {moviesData && <h1>Movie</h1>
-                } */}
-            </React.Fragment>
-        );
-    }
+    //             {/* // moviesData.Search.map((movie) => {
+    //                 //     <Movie data={movie} />;
+    //                 // })} */}
+    //             {/* {isFirstSearchDone && moviesData !== false
+    //                 ? moviesData.Search.map((movie) => {
+    //                       <Movie data={movie} />;
+    //                   })
+    //                 : undefined}
+    //             {moviesData &&
+    //                 moviesData.Search.map((movie) => {
+    //                     console.log(movie.Title);
+    //                 })}
+    //             {moviesData && <h1>Movie</h1>
+    //             } */}
+    //         </React.Fragment>
+    //     );
+    // }
 }
 
 export default App;
