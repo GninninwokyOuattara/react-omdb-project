@@ -1,16 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./SearchBar.css";
-
-interface ParamState {
-    props: {
-        setMoviesData: Function;
-        setIsLoading: Function;
-    };
-}
+import { ParamState } from "../models/ParamState";
 
 interface Response {
     Search?: {}[];
-    Response: boolean;
+    Response: string;
     totalResults: string;
 }
 
@@ -18,11 +12,15 @@ interface ResponseData {
     (): Promise<{}>;
 }
 
-const SearchBar: React.FC<ParamState> = (props) => {
-    // console.log({ props });
+// interface MooviesData {
+
+// }
+
+const SearchBar: React.FC<ParamState> = ({ props }) => {
+    const { setMoviesData, setIsFirstSearchDone } = props;
     const searchBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    // const searchButtonRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
-    const [isSeaching, setIsSearching] = useState<boolean>(false);
+
+    const [isSearching, setIsSearching] = useState<boolean>(false);
 
     const fetchData = async (): Promise<Response> => {
         const query = `http://www.omdbapi.com/?s=${
@@ -40,10 +38,21 @@ const SearchBar: React.FC<ParamState> = (props) => {
         const query = `http://www.omdbapi.com/?s=${searchBarRef.current.value}&apikey=480344f1&r`;
         setIsSearching((isSeaching) => true);
         const res = await fetch(query);
-        const response = await res.json();
+        const response: Response = await res.json();
         console.log(response);
+
+        if (!response.Response) {
+            setMoviesData(() => false);
+        } else {
+            setMoviesData(() => {
+                // console.log(response.response)
+                return { ...response };
+            });
+        }
+
+        setIsFirstSearchDone(() => true);
+
         setIsSearching((isSeaching) => false);
-        // const moviesData = fetchData();
     };
     return (
         <div className="d-flex flex-column justify-content-center align-items-center">
@@ -60,8 +69,9 @@ const SearchBar: React.FC<ParamState> = (props) => {
                 <button
                     type="submit"
                     className="form__btn-submit w-50 d-block mx-auto rounded border-0 text-white"
+                    disabled={isSearching}
                 >
-                    {isSeaching ? (
+                    {isSearching ? (
                         <i className="fa fa-spinner fa-spin"></i>
                     ) : (
                         "Search"

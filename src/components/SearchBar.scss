@@ -22,4 +22,9 @@
     border: none;
     height: 2.5rem;
     background-color: rgba(255, 112, 112, 0.73);
+
+    &:disabled {
+        background-color: hsl(15, 15%, 37%);
+        cursor: wait;
+    }
 }

@@ -16,5 +16,8 @@
   border: none;
   height: 2.5rem;
   background-color: rgba(255, 112, 112, 0.73); }
+  .form__btn-submit:disabled {
+    background-color: #6d5750;
+    cursor: wait; }
 
 /*# sourceMappingURL=SearchBar.css.map */
