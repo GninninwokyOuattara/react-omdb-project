@@ -27,10 +27,10 @@ export const fetchAllData = async (
             data = [...body.Search];
         }
     } else {
-        if ((body.Error = "Movie not found!")) {
-            throw new Error("Movie not found!");
+        if (body.Error == "Movie not found!") {
+            throw "Movie not found!";
         } else {
-            throw new Error("Too many results");
+            throw "Too many results";
         }
     }
 

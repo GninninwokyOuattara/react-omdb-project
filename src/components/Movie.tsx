@@ -13,9 +13,9 @@ interface MovieData {
 const Movie: React.FC<MovieData> = ({ Title, Year, Poster, imdbID, Type }) => {
     // console.log(Search);
     return (
-        <div className="movie col-sm-6 col-md-3">
-            <div className="movie-picture w-100 h-100">
-                <img src={Poster} alt="" />
+        <div className="">
+            <div className="movie-picture">
+                <img src={Poster} alt={Title} className="img movie-picture" />
             </div>
         </div>
     );

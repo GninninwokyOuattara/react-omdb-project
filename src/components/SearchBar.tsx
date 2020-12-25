@@ -9,7 +9,12 @@ import { fetchAllData } from "../utils/dataFetcher";
 // }
 
 const SearchBar: React.FC<ParamState> = ({ props }) => {
-    const { setMoviesData, setIsFirstSearchDone } = props;
+    const {
+        setMoviesData,
+        setIsFirstSearchDone,
+        isFirstSearchDone,
+        setErrorData,
+    } = props;
     const searchBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
     const [isSearching, setIsSearching] = useState<boolean>(false);
@@ -26,6 +31,7 @@ const SearchBar: React.FC<ParamState> = ({ props }) => {
 
     const submitHandler = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsFirstSearchDone(() => true);
 
         // await fetch()
         // const query = `http://www.omdbapi.com/?s=${searchBarRef.current.value}&apikey=480344f1&r`;
@@ -33,17 +39,28 @@ const SearchBar: React.FC<ParamState> = ({ props }) => {
         try {
             const results = await fetchAllData(1, searchBarRef.current.value);
             setMoviesData(() => results);
+            setErrorData(() => {
+                return { state: false };
+            });
         } catch (error) {
             console.log(error);
+            setErrorData(() => {
+                return { state: true, errorMessage: error };
+            });
         }
         //setup sate
-        setIsFirstSearchDone(() => true);
-        setIsSearching((isSeaching) => false);
+        setIsSearching((isSeaching) => {
+            return false;
+        });
     };
     return (
-        <div className="d-flex flex-column justify-content-center align-items-center">
-            <form action="" className="form" onSubmit={submitHandler}>
-                <div className="input-container my-4 rounded">
+        <div
+            className={`d-flex flex-column justify-content-center align-items-center ${
+                isFirstSearchDone || "h-100"
+            }`}
+        >
+            <form action="" className=" my-4" onSubmit={submitHandler}>
+                <div className="input-container mb-4 rounded">
                     <i className="fal fa-search"></i>
                     <input
                         className="form__input"
