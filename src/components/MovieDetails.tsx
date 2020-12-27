@@ -60,9 +60,13 @@ const MovieDetails: React.FC<{ showDetailModal: string }> = ({
             <div className="details-overlay" onClick={() => hide()}></div>
             <div className="details-container">
                 {detailsInfo ? (
-                    <Container>
-                        <Row className="gx-3 w-100">
-                            <Col xs={12} md={3}>
+                    <Container className="p-0">
+                        <Row className="gx-3 gy-2 w-100 m-0">
+                            <Col
+                                xs={12}
+                                md={3}
+                                className="img-rating m-0 align-self-start"
+                            >
                                 <div className="img-container">
                                     <img
                                         src={detailsInfo.Poster}
@@ -73,7 +77,7 @@ const MovieDetails: React.FC<{ showDetailModal: string }> = ({
                                     {detailsInfo.imdbRating}
                                 </h2>
                             </Col>
-                            <Col xs={12} md={9}>
+                            <Col xs={12} md={9} className="more-info">
                                 <h2 className="movie-title">
                                     {detailsInfo.Title}
                                 </h2>

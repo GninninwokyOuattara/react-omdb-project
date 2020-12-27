@@ -12,10 +12,10 @@
   background-color: #ffffff;
   border: 0.5rem solid #f3c9a2;
   border-radius: 1rem;
-  margin: 2rem;
+  margin: 0 auto;
   padding: 2rem;
   position: fixed;
-  height: 25rem !important;
+  height: 80% !important;
   top: 2rem;
   bottom: 2rem;
   left: 2rem;
@@ -35,6 +35,9 @@
     width: inherit;
     height: 100%; }
 
+.more-info {
+  overflow: scroll; }
+
 .movie-tags {
   margin-top: 1rem;
   width: 100%; }
@@ -43,6 +46,7 @@
     background-color: #eca8598a;
     border-radius: 5px;
     margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
     padding: 0 10px; }
 
 /*# sourceMappingURL=MovieDetails.css.map */
