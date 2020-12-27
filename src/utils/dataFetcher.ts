@@ -1,5 +1,5 @@
 import { ResponseData, Response } from "../models/ResponseData";
-import { MovieData } from "../models/MovieModel";
+import { MovieData, MovieSpecificData } from "../models/MovieModel";
 
 export const fetchAllData = async (
     page: number = 1,
@@ -39,4 +39,13 @@ export const fetchAllData = async (
         return movie.Poster !== "N/A";
     });
     return data;
+};
+
+export const fetchDetailsInfo = async (
+    imdb: string
+): Promise<MovieSpecificData<string>> => {
+    const query = `http://www.omdbapi.com/?i=${imdb}&apikey=480344f1&r`;
+    const res = await fetch(query);
+    const response = await res.json();
+    return response;
 };

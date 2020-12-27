@@ -35,6 +35,7 @@ const SearchBar: React.FC<ParamState> = ({ props }) => {
 
         // await fetch()
         // const query = `http://www.omdbapi.com/?s=${searchBarRef.current.value}&apikey=480344f1&r`;
+        setMoviesData(() => false);
         setIsSearching((isSeaching) => true);
         try {
             const results = await fetchAllData(1, searchBarRef.current.value);
@@ -43,7 +44,6 @@ const SearchBar: React.FC<ParamState> = ({ props }) => {
                 return { state: false };
             });
         } catch (error) {
-            console.log(error);
             setErrorData(() => {
                 return { state: true, errorMessage: error };
             });

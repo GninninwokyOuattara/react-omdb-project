@@ -73,7 +73,9 @@ function App() {
                                 })}
                         </Row>
                     </Container>
-                    {showDetailModal && <MovieDetails />}
+                    {showDetailModal && (
+                        <MovieDetails showDetailModal={showDetailModal} />
+                    )}
                 </React.Fragment>
             );
         }
