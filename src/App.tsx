@@ -5,10 +5,12 @@ import "./components/SearchBar";
 import SearchBar from "./components/SearchBar";
 import Movie from "./components/Movie";
 import ErrorDisplay from "./components/ErrorDisplay";
+import MovieDetails from "./components/MovieDetails";
 import { ResponseData } from "./models/ResponseData";
 import { MovieData } from "./models/MovieModel";
 import { classify } from "./utils/dataClassification";
 import { Container, Row, Col } from "react-bootstrap";
+import { useGlobalContext } from "./context/appContexts";
 
 function App() {
     const [moviesData, setMoviesData] = useState<false | MovieData[]>(false);
@@ -16,6 +18,7 @@ function App() {
         state: boolean;
         errorMessage?: string;
     }>({ state: false });
+    const { showDetailModal } = useGlobalContext();
     const [isFirstSearchDone, setIsFirstSearchDone] = useState<boolean>(false);
 
     if (!isFirstSearchDone) {
@@ -48,26 +51,30 @@ function App() {
             );
         } else {
             return (
-                <Container>
-                    <SearchBar
-                        props={{
-                            setMoviesData,
-                            setIsFirstSearchDone,
-                            setErrorData,
-                            isFirstSearchDone,
-                        }}
-                    />
-                    <Row className={"gx-3 w-100 gy-4"}>
-                        {moviesData !== false &&
-                            moviesData.map((movie) => {
-                                return (
-                                    <Col sm={6} md={3}>
-                                        <Movie {...movie} />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
-                </Container>
+                <React.Fragment>
+                    <Container>
+                        <SearchBar
+                            props={{
+                                setMoviesData,
+                                setIsFirstSearchDone,
+                                setErrorData,
+                                isFirstSearchDone,
+                            }}
+                        />
+                        <Row className={"gx-3 w-100 gy-4"}>
+                            {moviesData !== false &&
+                                moviesData.map((movie, index) => {
+                                    movie = { ...movie, index };
+                                    return (
+                                        <Col sm={6} md={3}>
+                                            <Movie {...movie} />
+                                        </Col>
+                                    );
+                                })}
+                        </Row>
+                    </Container>
+                    {showDetailModal && <MovieDetails />}
+                </React.Fragment>
             );
         }
     }

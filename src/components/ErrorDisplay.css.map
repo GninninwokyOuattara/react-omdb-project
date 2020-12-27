@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,gBAAiB;EACb,KAAK,EAAE,OAAO;EACd,mBAAG;IACC,SAAS,EAAE,KAAK;EAGpB,kBAAE;IACE,SAAS,EAAE,IAAI",
+"sources": ["ErrorDisplay.scss"],
+"names": [],
+"file": "ErrorDisplay.css"
+}

@@ -1,0 +1,11 @@
+.details-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0 auto;
+  background-color: #0000008a;
+  z-index: 1000; }
+
+/*# sourceMappingURL=MovieDetails.css.map */
